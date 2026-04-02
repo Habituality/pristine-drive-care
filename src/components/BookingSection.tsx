@@ -101,6 +101,9 @@ const BookingSection = () => {
               <input type="email" placeholder="E-post" required maxLength={255}
                 className="w-full bg-background border border-border px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                 value={state.email} onChange={(e) => set("email", e.target.value)} />
+              <input type="text" placeholder="Adress (gata, postnummer, ort)" required maxLength={200}
+                className="w-full bg-background border border-border px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                value={state.address} onChange={(e) => set("address", e.target.value)} />
 
               {/* Step 3: Calendar & Time */}
               <div className="flex items-center gap-3 mb-2 mt-8">

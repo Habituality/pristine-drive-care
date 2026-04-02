@@ -21,7 +21,7 @@ const HeroSection = () => {
           <span className="text-gold-gradient">exklusiv</span> bil- & hemvård
         </h1>
         <p className="font-body text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-          Professionell biltvätt, detaljering, uppfartstvätt och fasadrengöring – direkt på plats hos dig.
+          Professionell biltvätt, detaljering, altan och uppfarts tvätt och –<br />direkt på plats hos dig.
         </p>
         <div className="animate-fade-in-up" style={{ animationDelay: "0.45s" }}>
           <a

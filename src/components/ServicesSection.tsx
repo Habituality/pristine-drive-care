@@ -10,7 +10,7 @@ const services = [
     packages: [
       {
         name: "Exteriör + Interiör",
-        price: "från 1 495 kr",
+        price: "från 1 095 kr",
         features: [
           "Utvändig handtvätt & torkning",
           "Fälg- & däckrengöring",
@@ -30,7 +30,7 @@ const services = [
     packages: [
       {
         name: "Högtryckstvätt",
-        price: "från 500 kr + 30 kr/m²",
+        price: "från 400 kr + 30 kr/m²",
         features: [
           "Högtryckstvätt med rengöringsmedel",
           "Ogräs- & smutsborttagning",
@@ -49,7 +49,7 @@ const services = [
     packages: [
       {
         name: "Högtryckstvätt",
-        price: "från 600 kr + 35 kr/m²",
+        price: "från 500 kr + 30 kr/m²",
         features: [
           "Högtryckstvätt med rengöringsmedel",
           "Anpassat för trä & komposit",

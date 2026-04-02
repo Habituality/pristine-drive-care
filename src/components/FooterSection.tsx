@@ -27,8 +27,8 @@ const FooterSection = () => {
               <a href="tel:+46761865882" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors font-body text-sm">
                 <Phone className="w-4 h-4 text-primary" /> 076-186 58 82
               </a>
-              <a href="mailto:info@pureshine.se" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors font-body text-sm">
-                <Mail className="w-4 h-4 text-primary" /> info@pureshine.se
+              <a href="mailto:info@glanzio.se" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors font-body text-sm">
+                <Mail className="w-4 h-4 text-primary" /> info@glanzio.se
               </a>
               <div className="flex items-center gap-3 text-muted-foreground font-body text-sm">
                 <MapPin className="w-4 h-4 text-primary" /> Stockholm

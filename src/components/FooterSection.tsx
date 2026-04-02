@@ -24,8 +24,8 @@ const FooterSection = () => {
           <div>
             <h4 className="font-display text-lg font-bold mb-4">Kontakt</h4>
             <div className="space-y-3">
-              <a href="tel:+46701234567" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors font-body text-sm">
-                <Phone className="w-4 h-4 text-primary" /> 070-123 45 67
+              <a href="tel:+46761865882" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors font-body text-sm">
+                <Phone className="w-4 h-4 text-primary" /> 076-186 58 82
               </a>
               <a href="mailto:info@pureshine.se" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors font-body text-sm">
                 <Mail className="w-4 h-4 text-primary" /> info@pureshine.se

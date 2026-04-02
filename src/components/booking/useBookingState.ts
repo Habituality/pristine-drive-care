@@ -14,6 +14,7 @@ export interface BookingState {
   name: string;
   phone: string;
   email: string;
+  address: string;
   date: string;
   // Detailing
   carSize: string;

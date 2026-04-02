@@ -184,6 +184,8 @@ const BookingSection = () => {
                   onChange={(e) => setComments(e.target.value)}
                 />
               </div>
+              </>
+              )}
 
               {/* Summary */}
               <div className="border border-primary/20 bg-card p-4 font-body text-sm text-muted-foreground whitespace-pre-line">

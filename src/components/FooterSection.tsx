@@ -6,7 +6,7 @@ const FooterSection = () => {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           <div>
-            <p className="font-display text-2xl font-bold text-gold-gradient mb-4">PureShine</p>
+            <p className="font-display text-2xl font-bold text-gold-gradient mb-4">Glanzio</p>
             <p className="text-muted-foreground font-body text-sm leading-relaxed">
               Professionell mobil rengöring och detaljering i Stockholmsområdet. Vi kommer till dig.
             </p>

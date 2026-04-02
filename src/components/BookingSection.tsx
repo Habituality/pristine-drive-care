@@ -105,7 +105,9 @@ const BookingSection = () => {
                 className="w-full bg-background border border-border px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                 value={state.address} onChange={(e) => set("address", e.target.value)} />
 
-              {/* Step 3: Calendar & Time */}
+              {/* Step 3: Calendar & Time — only shown after contact info is complete */}
+              {contactComplete && (
+              <>
               <div className="flex items-center gap-3 mb-2 mt-8">
                 <span className="w-8 h-8 border border-primary flex items-center justify-center font-display text-sm font-bold text-primary">3</span>
                 <h3 className="font-display text-lg font-bold">Välj datum & tid</h3>

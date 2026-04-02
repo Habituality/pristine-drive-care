@@ -17,7 +17,7 @@ export const exteriorAddons = [
 ] as const;
 
 export const interiorAddons = [
-  { id: "leather", label: "Läderrengöring", basePrice: 395, sizeSurcharge: 50 },
+  { id: "leather", label: "Läderrengöring", basePrice: 495, sizeSurcharge: 50 },
   { id: "textile", label: "Textil & Vinylrengöring", basePrice: 295, sizeSurcharge: 50 },
 ] as const;
 

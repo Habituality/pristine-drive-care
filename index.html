@@ -15,5 +15,41 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <section id="booking">
+
+  <h2>Bil Detailing</h2>
+
+  <label>Bilstorlek:</label>
+  <select id="carSize">
+    <option value="0">Små</option>
+    <option value="100">Mellan (+100kr)</option>
+    <option value="200">XL (+200kr)</option>
+  </select>
+
+  <h3>Tillägg</h3>
+
+  <label>
+    <input type="checkbox" class="addon" value="595">
+    Clay Bar (595kr)
+  </label>
+
+  <label>
+    <input type="checkbox" class="addon" value="495">
+    Vaxning (495kr)
+  </label>
+
+  <label>
+    <input type="checkbox" class="addon" value="495">
+    Läderrengöring (495kr)
+  </label>
+
+  <label>
+    <input type="checkbox" class="addon" value="295">
+    Textil/Vinyl (295kr)
+  </label>
+
+  <h2 id="totalPrice">Totalt: 0 kr</h2>
+
+</section>
   </body>
 </html>

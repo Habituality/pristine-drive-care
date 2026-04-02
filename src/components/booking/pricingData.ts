@@ -6,9 +6,9 @@ export const carSizes = [
 ] as const;
 
 export const carPackages = [
-  { id: "ext-int", label: "Exteriör + Interiör", base: 1495 },
-  { id: "exterior-only", label: "Bara Exteriör", base: 895 },
-  { id: "interior-only", label: "Bara Interiör", base: 795 },
+  { id: "ext-int", label: "Exteriör + Interiör", base: 1095 },
+  { id: "exterior-only", label: "Bara Exteriör", base: 695 },
+  { id: "interior-only", label: "Bara Interiör", base: 595 },
 ] as const;
 
 export const exteriorAddons = [
@@ -23,7 +23,7 @@ export const interiorAddons = [
 
 // ====== Uppfart ======
 export const drivewayPricing = {
-  startPrice: 500,
+  startPrice: 400,
   pricePerSqm: 30,
 } as const;
 
@@ -44,8 +44,8 @@ export const deckSizes = [
 ] as const;
 
 export const deckPricing = {
-  startPrice: 600,
-  pricePerSqm: 35,
+  startPrice: 500,
+  pricePerSqm: 30,
 } as const;
 
 export const deckAddons = [

@@ -1,4 +1,4 @@
-import { Car, Home, Trees } from "lucide-react";
+import { Car, Home, Trees, Clock } from "lucide-react";
 import { OptionCard, CheckboxCard, SectionLabel, PriceDisplay } from "./BookingUI";
 import {
   carSizes, carPackages, exteriorAddons, interiorAddons,
@@ -21,9 +21,9 @@ interface Props {
 }
 
 const serviceToggles = [
-  { key: "enableDetailing" as const, label: "Bil Detailing", icon: Car },
-  { key: "enableDriveway" as const, label: "Uppfart", icon: Home },
-  { key: "enableDeck" as const, label: "Altan", icon: Trees },
+  { key: "enableDetailing" as const, label: "Bil Detailing", icon: Car, time: "2–5 h" },
+  { key: "enableDriveway" as const, label: "Uppfart", icon: Home, time: "1–3 h" },
+  { key: "enableDeck" as const, label: "Altan", icon: Trees, time: "1–3 h" },
 ];
 
 export default function ServiceConfigurator({ state, set, toggleAddon, price, detailingPrice, drivewayPrice, deckPrice, hasAnyService, onBook }: Props) {
@@ -36,21 +36,24 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, de
       {/* Service toggles */}
       <div>
         <SectionLabel>Välj tjänster</SectionLabel>
-        <div className="flex gap-3 flex-wrap">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {serviceToggles.map((t) => (
             <button
               key={t.key}
               type="button"
               onClick={() => set(t.key, !state[t.key])}
               className={cn(
-                "flex items-center gap-2 px-5 py-3 font-body text-sm font-medium tracking-wide uppercase transition-all duration-200 border",
+                "flex flex-col items-center gap-2 px-5 py-4 font-body text-sm font-medium tracking-wide uppercase transition-all duration-200 border",
                 state[t.key]
-                  ? "border-primary bg-primary text-primary-foreground"
+                  ? "border-primary bg-primary/10 text-foreground"
                   : "border-border bg-secondary text-muted-foreground hover:border-primary/50"
               )}
             >
-              <t.icon className="w-4 h-4" />
-              {t.label}
+              <t.icon className="w-5 h-5" />
+              <span>{t.label}</span>
+              <span className="flex items-center gap-1 text-xs normal-case tracking-normal opacity-70">
+                <Clock className="w-3 h-3" /> {t.time}
+              </span>
             </button>
           ))}
         </div>
@@ -63,6 +66,7 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, de
           <div className="flex items-center gap-2 mb-1">
             <Car className="w-5 h-5 text-primary" />
             <h3 className="font-display text-lg font-bold">Bil Detailing</h3>
+            <span className="flex items-center gap-1 text-xs text-muted-foreground font-body ml-1"><Clock className="w-3 h-3" /> 2–5 h</span>
             {detailingPrice > 0 && <span className="ml-auto font-body text-sm text-primary font-semibold">{detailingPrice} kr</span>}
           </div>
           <div>
@@ -110,10 +114,11 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, de
           <div className="flex items-center gap-2 mb-1">
             <Home className="w-5 h-5 text-primary" />
             <h3 className="font-display text-lg font-bold">Uppfart</h3>
+            <span className="flex items-center gap-1 text-xs text-muted-foreground font-body ml-1"><Clock className="w-3 h-3" /> 1–3 h</span>
             {drivewayPrice > 0 && <span className="ml-auto font-body text-sm text-primary font-semibold">{drivewayPrice} kr</span>}
           </div>
           <div>
-            <SectionLabel>Paket: Högtryckstvätt</SectionLabel>
+            <SectionLabel>Paket: Högtryckstvätt med rengöringsmedel</SectionLabel>
           </div>
           <div>
             <SectionLabel>Yta (m²)</SectionLabel>
@@ -147,10 +152,11 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, de
           <div className="flex items-center gap-2 mb-1">
             <Trees className="w-5 h-5 text-primary" />
             <h3 className="font-display text-lg font-bold">Altan</h3>
+            <span className="flex items-center gap-1 text-xs text-muted-foreground font-body ml-1"><Clock className="w-3 h-3" /> 1–3 h</span>
             {deckPrice > 0 && <span className="ml-auto font-body text-sm text-primary font-semibold">{deckPrice} kr</span>}
           </div>
           <div>
-            <SectionLabel>Paket: Högtryckstvätt</SectionLabel>
+            <SectionLabel>Paket: Högtryckstvätt med rengöringsmedel</SectionLabel>
           </div>
           <div>
             <SectionLabel>Material</SectionLabel>

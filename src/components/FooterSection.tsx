@@ -39,7 +39,7 @@ const FooterSection = () => {
 
         <div className="border-t border-border pt-8 text-center">
           <p className="text-muted-foreground font-body text-xs tracking-wider">
-            © {new Date().getFullYear()} PureShine. Alla rättigheter förbehållna.
+            © {new Date().getFullYear()} Glanzio Bil & Hemvård. Alla rättigheter förbehållna.
           </p>
         </div>
       </div>

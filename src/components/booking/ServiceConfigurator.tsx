@@ -2,8 +2,8 @@ import { Car, Home, Trees } from "lucide-react";
 import { OptionCard, CheckboxCard, SectionLabel, PriceDisplay } from "./BookingUI";
 import {
   carSizes, carPackages, exteriorAddons, interiorAddons,
-  drivewaySizes, drivewayPackages, drivewayAddons,
-  deckMaterials, deckSizes, deckPackages, deckAddons,
+  drivewayAddons,
+  deckMaterials, deckSizes, deckAddons,
 } from "./pricingData";
 import type { BookingState } from "./useBookingState";
 import { cn } from "@/lib/utils";
@@ -13,55 +13,69 @@ interface Props {
   set: <K extends keyof BookingState>(key: K, value: BookingState[K]) => void;
   toggleAddon: (key: "carExteriorAddons" | "carInteriorAddons" | "drivewayAddons" | "deckAddons", id: string) => void;
   price: number;
+  detailingPrice: number;
+  drivewayPrice: number;
+  deckPrice: number;
+  hasAnyService: boolean;
   onBook: () => void;
 }
 
-const tabs = [
-  { id: "detailing" as const, label: "Bil Detailing", icon: Car },
-  { id: "driveway" as const, label: "Uppfart", icon: Home },
-  { id: "deck" as const, label: "Altan", icon: Trees },
+const serviceToggles = [
+  { key: "enableDetailing" as const, label: "Bil Detailing", icon: Car },
+  { key: "enableDriveway" as const, label: "Uppfart", icon: Home },
+  { key: "enableDeck" as const, label: "Altan", icon: Trees },
 ];
 
-export default function ServiceConfigurator({ state, set, toggleAddon, price, onBook }: Props) {
-  const showExtAddons = state.carPackage.includes("exterior") || state.carPackage.startsWith("full");
-  const showIntAddons = state.carPackage.includes("interior") || state.carPackage.startsWith("full");
+export default function ServiceConfigurator({ state, set, toggleAddon, price, detailingPrice, drivewayPrice, deckPrice, hasAnyService, onBook }: Props) {
+  const showExtAddons = state.carPackage === "ext-int" || state.carPackage === "exterior-only";
+  const showIntAddons = state.carPackage === "ext-int" || state.carPackage === "interior-only";
+  const sizeIdx = carSizes.findIndex((s) => s.id === state.carSize);
 
   return (
     <div className="space-y-8">
-      {/* Tabs */}
-      <div className="flex gap-2 flex-wrap">
-        {tabs.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            onClick={() => set("service", t.id)}
-            className={cn(
-              "flex items-center gap-2 px-5 py-3 font-body text-sm font-medium tracking-wide uppercase transition-all duration-200 border",
-              state.service === t.id
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border bg-secondary text-muted-foreground hover:border-primary/50"
-            )}
-          >
-            <t.icon className="w-4 h-4" />
-            {t.label}
-          </button>
-        ))}
+      {/* Service toggles */}
+      <div>
+        <SectionLabel>Välj tjänster</SectionLabel>
+        <div className="flex gap-3 flex-wrap">
+          {serviceToggles.map((t) => (
+            <button
+              key={t.key}
+              type="button"
+              onClick={() => set(t.key, !state[t.key])}
+              className={cn(
+                "flex items-center gap-2 px-5 py-3 font-body text-sm font-medium tracking-wide uppercase transition-all duration-200 border",
+                state[t.key]
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-secondary text-muted-foreground hover:border-primary/50"
+              )}
+            >
+              <t.icon className="w-4 h-4" />
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-muted-foreground font-body mt-2">Du kan välja flera tjänster samtidigt</p>
       </div>
 
       {/* ====== Detailing ====== */}
-      {state.service === "detailing" && (
-        <div className="space-y-6 animate-fade-in-up">
+      {state.enableDetailing && (
+        <div className="space-y-6 animate-fade-in-up border border-border p-5 md:p-6 bg-secondary/50">
+          <div className="flex items-center gap-2 mb-1">
+            <Car className="w-5 h-5 text-primary" />
+            <h3 className="font-display text-lg font-bold">Bil Detailing</h3>
+            {detailingPrice > 0 && <span className="ml-auto font-body text-sm text-primary font-semibold">{detailingPrice} kr</span>}
+          </div>
           <div>
             <SectionLabel>Bilstorlek</SectionLabel>
             <div className="grid grid-cols-3 gap-3">
               {carSizes.map((s) => (
-                <OptionCard key={s.id} label={s.label} selected={state.carSize === s.id} onClick={() => set("carSize", s.id)} />
+                <OptionCard key={s.id} label={s.label} detail={s.baseSurcharge > 0 ? `+${s.baseSurcharge} kr` : "Baspris"} selected={state.carSize === s.id} onClick={() => set("carSize", s.id)} />
               ))}
             </div>
           </div>
           <div>
             <SectionLabel>Välj paket</SectionLabel>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-3 gap-3">
               {carPackages.map((p) => (
                 <OptionCard key={p.id} label={p.label} detail={`från ${p.base} kr`} selected={state.carPackage === p.id} onClick={() => set("carPackage", p.id)} />
               ))}
@@ -72,7 +86,7 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, on
               <SectionLabel>Exteriör-tillägg</SectionLabel>
               <div className="grid sm:grid-cols-2 gap-3">
                 {exteriorAddons.map((a) => (
-                  <CheckboxCard key={a.id} label={a.label} price={a.price} checked={state.carExteriorAddons.includes(a.id)} onChange={() => toggleAddon("carExteriorAddons", a.id)} />
+                  <CheckboxCard key={a.id} label={a.label} price={a.basePrice + a.sizeSurcharge * sizeIdx} checked={state.carExteriorAddons.includes(a.id)} onChange={() => toggleAddon("carExteriorAddons", a.id)} />
                 ))}
               </div>
             </div>
@@ -82,7 +96,7 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, on
               <SectionLabel>Interiör-tillägg</SectionLabel>
               <div className="grid sm:grid-cols-2 gap-3">
                 {interiorAddons.map((a) => (
-                  <CheckboxCard key={a.id} label={a.label} price={a.price} checked={state.carInteriorAddons.includes(a.id)} onChange={() => toggleAddon("carInteriorAddons", a.id)} />
+                  <CheckboxCard key={a.id} label={a.label} price={a.basePrice + a.sizeSurcharge * sizeIdx} checked={state.carInteriorAddons.includes(a.id)} onChange={() => toggleAddon("carInteriorAddons", a.id)} />
                 ))}
               </div>
             </div>
@@ -91,22 +105,29 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, on
       )}
 
       {/* ====== Driveway ====== */}
-      {state.service === "driveway" && (
-        <div className="space-y-6 animate-fade-in-up">
-          <div>
-            <SectionLabel>Storlek</SectionLabel>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {drivewaySizes.map((s) => (
-                <OptionCard key={s.id} label={s.label} selected={state.drivewaySize === s.id} onClick={() => set("drivewaySize", s.id)} />
-              ))}
-            </div>
+      {state.enableDriveway && (
+        <div className="space-y-6 animate-fade-in-up border border-border p-5 md:p-6 bg-secondary/50">
+          <div className="flex items-center gap-2 mb-1">
+            <Home className="w-5 h-5 text-primary" />
+            <h3 className="font-display text-lg font-bold">Uppfart</h3>
+            {drivewayPrice > 0 && <span className="ml-auto font-body text-sm text-primary font-semibold">{drivewayPrice} kr</span>}
           </div>
           <div>
-            <SectionLabel>Paket</SectionLabel>
-            <div className="grid grid-cols-3 gap-3">
-              {drivewayPackages.map((p) => (
-                <OptionCard key={p.id} label={p.label} detail={`från ${p.base} kr`} selected={state.drivewayPackage === p.id} onClick={() => set("drivewayPackage", p.id)} />
-              ))}
+            <SectionLabel>Paket: Högtryckstvätt</SectionLabel>
+          </div>
+          <div>
+            <SectionLabel>Yta (m²)</SectionLabel>
+            <div className="flex items-center gap-4">
+              <input
+                type="range"
+                min={5}
+                max={100}
+                step={1}
+                value={state.drivewaySqm}
+                onChange={(e) => set("drivewaySqm", Number(e.target.value))}
+                className="w-full accent-primary"
+              />
+              <span className="font-body text-sm font-semibold text-foreground min-w-[4rem] text-right">{state.drivewaySqm} m²</span>
             </div>
           </div>
           <div>
@@ -121,8 +142,16 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, on
       )}
 
       {/* ====== Deck ====== */}
-      {state.service === "deck" && (
-        <div className="space-y-6 animate-fade-in-up">
+      {state.enableDeck && (
+        <div className="space-y-6 animate-fade-in-up border border-border p-5 md:p-6 bg-secondary/50">
+          <div className="flex items-center gap-2 mb-1">
+            <Trees className="w-5 h-5 text-primary" />
+            <h3 className="font-display text-lg font-bold">Altan</h3>
+            {deckPrice > 0 && <span className="ml-auto font-body text-sm text-primary font-semibold">{deckPrice} kr</span>}
+          </div>
+          <div>
+            <SectionLabel>Paket: Högtryckstvätt</SectionLabel>
+          </div>
           <div>
             <SectionLabel>Material</SectionLabel>
             <div className="grid grid-cols-2 gap-3">
@@ -140,14 +169,6 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, on
             </div>
           </div>
           <div>
-            <SectionLabel>Paket</SectionLabel>
-            <div className="grid grid-cols-3 gap-3">
-              {deckPackages.map((p) => (
-                <OptionCard key={p.id} label={p.label} detail={`från ${p.base} kr`} selected={state.deckPackage === p.id} onClick={() => set("deckPackage", p.id)} />
-              ))}
-            </div>
-          </div>
-          <div>
             <SectionLabel>Tillägg</SectionLabel>
             <div className="grid sm:grid-cols-2 gap-3">
               {deckAddons.map((a) => (
@@ -158,15 +179,19 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, on
         </div>
       )}
 
-      {/* Price + CTA */}
-      <PriceDisplay price={price} />
-      <button
-        type="button"
-        onClick={onBook}
-        className="w-full px-8 py-4 bg-primary text-primary-foreground font-body text-sm font-semibold tracking-[0.2em] uppercase hover:bg-gold-light transition-colors"
-      >
-        Boka nu
-      </button>
+      {/* Total Price + CTA */}
+      {hasAnyService && (
+        <>
+          <PriceDisplay price={price} />
+          <button
+            type="button"
+            onClick={onBook}
+            className="w-full px-8 py-4 bg-primary text-primary-foreground font-body text-sm font-semibold tracking-[0.2em] uppercase hover:bg-gold-light transition-colors"
+          >
+            Boka nu
+          </button>
+        </>
+      )}
     </div>
   );
 }

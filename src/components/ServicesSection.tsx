@@ -1,7 +1,6 @@
-import { Car, Home, Building } from "lucide-react";
+import { Car, Home } from "lucide-react";
 import serviceDetailing from "@/assets/service-detailing.jpg";
 import serviceDriveway from "@/assets/service-driveway.jpg";
-import serviceFacade from "@/assets/service-facade.jpg";
 
 const services = [
   {

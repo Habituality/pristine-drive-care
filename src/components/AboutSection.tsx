@@ -1,7 +1,7 @@
 import { Star, Shield, Clock } from "lucide-react";
 
 const testimonials = [
-  { name: "Anna L.", text: "Helt fantastiskt resultat! Min bil ser ut som ny. Kommer definitivt anlita PureShine igen." },
+  { name: "Anna L.", text: "Helt fantastiskt resultat! Min bil ser ut som ny. Kommer definitivt anlita Glanzio igen." },
   { name: "Erik S.", text: "Uppfarten hade inte sett så bra ut på 10 år. Proffsigt och snabbt. Rekommenderas varmt!" },
   { name: "Maria K.", text: "Smidig bokning och otroligt nöjd med fasadtvätten. Fem stjärnor utan tvekan." },
 ];
@@ -13,7 +13,7 @@ const AboutSection = () => {
         <div className="text-center mb-16">
           <p className="font-body text-sm tracking-[0.3em] uppercase text-primary mb-3">Om oss</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold">
-            Varför välja <span className="text-gold-gradient">PureShine</span>?
+            Varför välja <span className="text-gold-gradient">Glanzio</span>?
           </h2>
         </div>
 

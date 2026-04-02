@@ -13,11 +13,11 @@ export const carPackages = [
 
 export const exteriorAddons = [
   { id: "clay-bar", label: "Clay Bar", basePrice: 495, sizeSurcharge: 50 },
-  { id: "wax", label: "Vaxning", basePrice: 395, sizeSurcharge: 50 },
+  { id: "wax", label: "Vaxning", basePrice: 495, sizeSurcharge: 50 },
 ] as const;
 
 export const interiorAddons = [
-  { id: "leather", label: "Läderrengöring", basePrice: 395, sizeSurcharge: 50 },
+  { id: "leather", label: "Läderrengöring", basePrice: 495, sizeSurcharge: 50 },
   { id: "textile", label: "Textil & Vinylrengöring", basePrice: 295, sizeSurcharge: 50 },
 ] as const;
 

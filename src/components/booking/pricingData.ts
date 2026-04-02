@@ -13,7 +13,7 @@ export const carPackages = [
 
 export const exteriorAddons = [
   { id: "clay-bar", label: "Clay Bar", basePrice: 495, sizeSurcharge: 50 },
-  { id: "wax", label: "Vaxning", basePrice: 395, sizeSurcharge: 50 },
+  { id: "wax", label: "Vaxning", basePrice: 495, sizeSurcharge: 50 },
 ] as const;
 
 export const interiorAddons = [

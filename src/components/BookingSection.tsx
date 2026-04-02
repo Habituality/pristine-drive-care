@@ -8,7 +8,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { cn } from "@/lib/utils";
 
 const timeSlots = [
-  "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00",
+  "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
+  "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00",
 ];
 
 // Simulated booked slots (in production, fetch from backend)
@@ -40,7 +41,8 @@ const BookingSection = () => {
     setShowForm(false);
   };
 
-  const isFormComplete = state.name && state.phone && state.email && selectedDate && selectedTime;
+  const contactComplete = !!(state.name && state.phone && state.email && state.address);
+  const isFormComplete = contactComplete && selectedDate && selectedTime;
 
   return (
     <section id="bokning" className="py-24 bg-card">
@@ -99,8 +101,13 @@ const BookingSection = () => {
               <input type="email" placeholder="E-post" required maxLength={255}
                 className="w-full bg-background border border-border px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                 value={state.email} onChange={(e) => set("email", e.target.value)} />
+              <input type="text" placeholder="Adress (gata, postnummer, ort)" required maxLength={200}
+                className="w-full bg-background border border-border px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                value={state.address} onChange={(e) => set("address", e.target.value)} />
 
-              {/* Step 3: Calendar & Time */}
+              {/* Step 3: Calendar & Time — only shown after contact info is complete */}
+              {contactComplete && (
+              <>
               <div className="flex items-center gap-3 mb-2 mt-8">
                 <span className="w-8 h-8 border border-primary flex items-center justify-center font-display text-sm font-bold text-primary">3</span>
                 <h3 className="font-display text-lg font-bold">Välj datum & tid</h3>
@@ -137,7 +144,7 @@ const BookingSection = () => {
 
                 <div>
                   <p className="font-body text-xs tracking-[0.15em] uppercase text-primary mb-2">Tid</p>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                     {timeSlots.map((slot) => {
                       const isUnavailable = unavailableTimes.includes(slot);
                       return (
@@ -177,6 +184,8 @@ const BookingSection = () => {
                   onChange={(e) => setComments(e.target.value)}
                 />
               </div>
+              </>
+              )}
 
               {/* Summary */}
               <div className="border border-primary/20 bg-card p-4 font-body text-sm text-muted-foreground whitespace-pre-line">

@@ -14,6 +14,7 @@ export interface BookingState {
   name: string;
   phone: string;
   email: string;
+  address: string;
   date: string;
   // Detailing
   carSize: string;
@@ -36,6 +37,7 @@ const initial: BookingState = {
   name: "",
   phone: "",
   email: "",
+  address: "",
   date: "",
   carSize: "small",
   carPackage: "ext-int",

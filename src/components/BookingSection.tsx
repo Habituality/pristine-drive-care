@@ -41,7 +41,8 @@ const BookingSection = () => {
     setShowForm(false);
   };
 
-  const isFormComplete = state.name && state.phone && state.email && selectedDate && selectedTime;
+  const contactComplete = !!(state.name && state.phone && state.email && state.address);
+  const isFormComplete = contactComplete && selectedDate && selectedTime;
 
   return (
     <section id="bokning" className="py-24 bg-card">

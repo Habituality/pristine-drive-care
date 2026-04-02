@@ -37,6 +37,7 @@ const initial: BookingState = {
   name: "",
   phone: "",
   email: "",
+  address: "",
   date: "",
   carSize: "small",
   carPackage: "ext-int",

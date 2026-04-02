@@ -144,7 +144,7 @@ const BookingSection = () => {
 
                 <div>
                   <p className="font-body text-xs tracking-[0.15em] uppercase text-primary mb-2">Tid</p>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                     {timeSlots.map((slot) => {
                       const isUnavailable = unavailableTimes.includes(slot);
                       return (

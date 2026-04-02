@@ -70,7 +70,6 @@ const BookingSection = () => {
               <option value="">Välj tjänst</option>
               <option value="bilvärd">Bilvård & Detailing</option>
               <option value="uppfart">Uppfart & Altan</option>
-              <option value="fasad">Fasadtvätt</option>
             </select>
             <input
               type="date"

@@ -17,7 +17,7 @@ const FooterSection = () => {
             <ul className="space-y-2">
               <li><a href="#tjanster" className="text-muted-foreground hover:text-primary transition-colors font-body text-sm">Bilvård & Detailing</a></li>
               <li><a href="#tjanster" className="text-muted-foreground hover:text-primary transition-colors font-body text-sm">Uppfart & Altan</a></li>
-              <li><a href="#tjanster" className="text-muted-foreground hover:text-primary transition-colors font-body text-sm">Fasadtvätt</a></li>
+              
             </ul>
           </div>
 

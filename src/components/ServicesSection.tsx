@@ -23,16 +23,6 @@ const services = [
       { name: "Premium", price: "från 2 995 kr", features: ["Upp till 60 m²", "Impregnering", "Fogning ingår"] },
     ],
   },
-  {
-    icon: Building,
-    title: "Fasadtvätt",
-    description: "Professionell rengöring av fasader, tak och väggar. Bort med smuts, mossa och alger.",
-    image: serviceFacade,
-    packages: [
-      { name: "Standard", price: "från 2 495 kr", features: ["Fasad upp till 80 m²", "Biologisk rengöring"] },
-      { name: "Premium", price: "från 4 995 kr", features: ["Fasad + tak", "Alg- & mossbehandling", "Impregnering"] },
-    ],
-  },
 ];
 
 const ServicesSection = () => {

@@ -1,15 +1,16 @@
 import { useState, useMemo } from "react";
 import {
   carSizes, carPackages, exteriorAddons, interiorAddons,
-  drivewaySizes, drivewayPackages, drivewayAddons,
-  deckMaterials, deckSizes, deckPackages, deckAddons,
+  drivewayPricing, drivewayAddons,
+  deckMaterials, deckSizes, deckPricing, deckAddons,
 } from "./pricingData";
 
-export type ServiceType = "detailing" | "driveway" | "deck";
-
 export interface BookingState {
+  // Which services are enabled
+  enableDetailing: boolean;
+  enableDriveway: boolean;
+  enableDeck: boolean;
   // Common
-  service: ServiceType;
   name: string;
   phone: string;
   email: string;
@@ -20,37 +21,40 @@ export interface BookingState {
   carExteriorAddons: string[];
   carInteriorAddons: string[];
   // Driveway
-  drivewaySize: string;
-  drivewayPackage: string;
+  drivewaySqm: number;
   drivewayAddons: string[];
   // Deck
   deckMaterial: string;
   deckSize: string;
-  deckPackage: string;
   deckAddons: string[];
 }
 
 const initial: BookingState = {
-  service: "detailing",
+  enableDetailing: true,
+  enableDriveway: false,
+  enableDeck: false,
   name: "",
   phone: "",
   email: "",
   date: "",
   carSize: "small",
-  carPackage: "full-exterior",
+  carPackage: "ext-int",
   carExteriorAddons: [],
   carInteriorAddons: [],
-  drivewaySize: "small",
-  drivewayPackage: "pressure",
+  drivewaySqm: 20,
   drivewayAddons: [],
   deckMaterial: "wood",
   deckSize: "small",
-  deckPackage: "pressure",
   deckAddons: [],
 };
 
 function toggleInArray(arr: string[], id: string) {
   return arr.includes(id) ? arr.filter((x) => x !== id) : [...arr, id];
+}
+
+function getSizeIndex(sizeId: string): number {
+  const idx = carSizes.findIndex((s) => s.id === sizeId);
+  return idx >= 0 ? idx : 0;
 }
 
 export function useBookingState() {
@@ -62,62 +66,81 @@ export function useBookingState() {
   const toggleAddon = (key: "carExteriorAddons" | "carInteriorAddons" | "drivewayAddons" | "deckAddons", id: string) =>
     setState((prev) => ({ ...prev, [key]: toggleInArray(prev[key], id) }));
 
-  const price = useMemo(() => {
-    if (state.service === "detailing") {
-      const size = carSizes.find((s) => s.id === state.carSize);
-      const pkg = carPackages.find((p) => p.id === state.carPackage);
-      if (!size || !pkg) return 0;
-      let total = pkg.base * size.priceMultiplier;
-      const isExt = state.carPackage.includes("exterior") || state.carPackage === "full-exterior";
-      const isInt = state.carPackage.includes("interior") || state.carPackage === "full-interior";
-      if (isExt) total += state.carExteriorAddons.reduce((s, id) => s + (exteriorAddons.find((a) => a.id === id)?.price ?? 0), 0);
-      if (isInt) total += state.carInteriorAddons.reduce((s, id) => s + (interiorAddons.find((a) => a.id === id)?.price ?? 0), 0);
-      // For full packages both addons apply
-      if (state.carPackage === "full-exterior" || state.carPackage === "full-interior") {
-        // already handled above
-      }
-      return Math.round(total);
-    }
-    if (state.service === "driveway") {
-      const size = drivewaySizes.find((s) => s.id === state.drivewaySize);
-      const pkg = drivewayPackages.find((p) => p.id === state.drivewayPackage);
-      if (!size || !pkg) return 0;
-      let total = pkg.base * size.priceMultiplier;
-      total += state.drivewayAddons.reduce((s, id) => s + (drivewayAddons.find((a) => a.id === id)?.price ?? 0), 0);
-      return Math.round(total);
-    }
-    // Deck
-    const size = deckSizes.find((s) => s.id === state.deckSize);
-    const pkg = deckPackages.find((p) => p.id === state.deckPackage);
+  const detailingPrice = useMemo(() => {
+    if (!state.enableDetailing) return 0;
+    const size = carSizes.find((s) => s.id === state.carSize);
+    const pkg = carPackages.find((p) => p.id === state.carPackage);
     if (!size || !pkg) return 0;
-    let total = pkg.base * size.priceMultiplier;
+    let total = pkg.base + size.baseSurcharge;
+    const sizeIdx = getSizeIndex(state.carSize);
+    const showExt = state.carPackage === "ext-int" || state.carPackage === "exterior-only";
+    const showInt = state.carPackage === "ext-int" || state.carPackage === "interior-only";
+    if (showExt) {
+      total += state.carExteriorAddons.reduce((s, id) => {
+        const a = exteriorAddons.find((x) => x.id === id);
+        return s + (a ? a.basePrice + a.sizeSurcharge * sizeIdx : 0);
+      }, 0);
+    }
+    if (showInt) {
+      total += state.carInteriorAddons.reduce((s, id) => {
+        const a = interiorAddons.find((x) => x.id === id);
+        return s + (a ? a.basePrice + a.sizeSurcharge * sizeIdx : 0);
+      }, 0);
+    }
+    return Math.round(total);
+  }, [state.enableDetailing, state.carSize, state.carPackage, state.carExteriorAddons, state.carInteriorAddons]);
+
+  const drivewayPrice = useMemo(() => {
+    if (!state.enableDriveway) return 0;
+    let total = drivewayPricing.startPrice + drivewayPricing.pricePerSqm * state.drivewaySqm;
+    total += state.drivewayAddons.reduce((s, id) => s + (drivewayAddons.find((a) => a.id === id)?.price ?? 0), 0);
+    return Math.round(total);
+  }, [state.enableDriveway, state.drivewaySqm, state.drivewayAddons]);
+
+  const deckPrice = useMemo(() => {
+    if (!state.enableDeck) return 0;
+    const size = deckSizes.find((s) => s.id === state.deckSize);
+    if (!size) return 0;
+    let total = deckPricing.startPrice + deckPricing.pricePerSqm * size.sqm;
     total += state.deckAddons.reduce((s, id) => s + (deckAddons.find((a) => a.id === id)?.price ?? 0), 0);
     return Math.round(total);
-  }, [state]);
+  }, [state.enableDeck, state.deckSize, state.deckAddons]);
+
+  const price = detailingPrice + drivewayPrice + deckPrice;
+
+  const hasAnyService = state.enableDetailing || state.enableDriveway || state.enableDeck;
 
   const summary = useMemo(() => {
     const lines: string[] = [];
-    if (state.service === "detailing") {
-      lines.push(`Bil Detailing`);
+    if (state.enableDetailing) {
+      lines.push(`── Bil Detailing ──`);
       lines.push(`Storlek: ${carSizes.find((s) => s.id === state.carSize)?.label}`);
       lines.push(`Paket: ${carPackages.find((p) => p.id === state.carPackage)?.label}`);
       if (state.carExteriorAddons.length) lines.push(`Exteriör-tillägg: ${state.carExteriorAddons.map((id) => exteriorAddons.find((a) => a.id === id)?.label).join(", ")}`);
       if (state.carInteriorAddons.length) lines.push(`Interiör-tillägg: ${state.carInteriorAddons.map((id) => interiorAddons.find((a) => a.id === id)?.label).join(", ")}`);
-    } else if (state.service === "driveway") {
-      lines.push(`Uppfart`);
-      lines.push(`Storlek: ${drivewaySizes.find((s) => s.id === state.drivewaySize)?.label}`);
-      lines.push(`Paket: ${drivewayPackages.find((p) => p.id === state.drivewayPackage)?.label}`);
+      lines.push(`Delpris: ${detailingPrice} kr`);
+      lines.push("");
+    }
+    if (state.enableDriveway) {
+      lines.push(`── Uppfart ──`);
+      lines.push(`Yta: ${state.drivewaySqm} m²`);
+      lines.push(`Paket: Högtryckstvätt`);
       if (state.drivewayAddons.length) lines.push(`Tillägg: ${state.drivewayAddons.map((id) => drivewayAddons.find((a) => a.id === id)?.label).join(", ")}`);
-    } else {
-      lines.push(`Altan`);
+      lines.push(`Delpris: ${drivewayPrice} kr`);
+      lines.push("");
+    }
+    if (state.enableDeck) {
+      lines.push(`── Altan ──`);
       lines.push(`Material: ${deckMaterials.find((m) => m.id === state.deckMaterial)?.label}`);
       lines.push(`Storlek: ${deckSizes.find((s) => s.id === state.deckSize)?.label}`);
-      lines.push(`Paket: ${deckPackages.find((p) => p.id === state.deckPackage)?.label}`);
+      lines.push(`Paket: Högtryckstvätt`);
       if (state.deckAddons.length) lines.push(`Tillägg: ${state.deckAddons.map((id) => deckAddons.find((a) => a.id === id)?.label).join(", ")}`);
+      lines.push(`Delpris: ${deckPrice} kr`);
+      lines.push("");
     }
-    lines.push(`Pris: ${price} kr`);
+    lines.push(`Totalt: ${price} kr`);
     return lines.join("\n");
-  }, [state, price]);
+  }, [state, detailingPrice, drivewayPrice, deckPrice, price]);
 
-  return { state, set, toggleAddon, price, summary };
+  return { state, set, toggleAddon, price, summary, hasAnyService, detailingPrice, drivewayPrice, deckPrice };
 }

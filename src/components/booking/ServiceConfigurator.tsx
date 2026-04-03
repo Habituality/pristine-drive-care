@@ -21,7 +21,7 @@ interface Props {
 }
 
 const serviceToggles = [
-  { key: "enableDetailing" as const, label: "Bil Detailing", icon: Car, time: "1–4 h" },
+  { key: "enableDetailing" as const, label: "Bil Detailing", icon: Car, time: "2–5 h" },
   { key: "enableDriveway" as const, label: "Uppfart", icon: Home, time: "1–3 h" },
   { key: "enableDeck" as const, label: "Altan", icon: Trees, time: "1–3 h" },
 ];

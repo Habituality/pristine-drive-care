@@ -2,7 +2,7 @@
 export const carSizes = [
   { id: "small", label: "Liten bil", baseSurcharge: 0 },
   { id: "medium", label: "Mellanstor", baseSurcharge: 100 },
-  { id: "xl", label: "XL / SUV", baseSurcharge: 200 },
+  { id: "xl", label: "XL / SUV", baseSurcharge: 201 },
 ] as const;
 
 export const carPackages = [

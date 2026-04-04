@@ -1,3 +1,4 @@
+import { createBooking } from "../lib/bookings";
 import { useState } from "react";
 import { Phone, Mail, MapPin, CalendarIcon, MessageSquare } from "lucide-react";
 import { format } from "date-fns";
@@ -33,17 +34,42 @@ const BookingSection = () => {
 
   const dateStr = selectedDate ? format(selectedDate, "yyyy-MM-dd") : "";
   const unavailableTimes = dateStr ? (bookedSlots[dateStr] || []) : [];
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const fullSummary = `${summary}\nDatum: ${dateStr}\nTid: ${selectedTime}\n${comments ? `Kommentarer: ${comments}` : ""}`;
-    alert(`Tack för din bokning! Vi återkommer inom kort.\n\n${fullSummary}`);
-    setShowForm(false);
-  };
-
+ 
   const contactComplete = !!(state.name && state.phone && state.email && state.address);
   const isFormComplete = contactComplete && selectedDate && selectedTime;
 
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!isFormComplete) return;
+
+  try {
+    console.log("TIME:", selectedTime);
+    await createBooking({
+      name: state.name,
+      phone: state.phone,
+      email: state.email,
+      address: state.address,
+      date: selectedDate?.toISOString(),
+      time: selectedTime,
+      comments
+    });
+
+   alert(`Bokning skapad!\n\n${JSON.stringify({
+  name: state.name,
+  phone: state.phone,
+  email: state.email,
+  address: state.address,
+  date: selectedDate?.toISOString(),
+  time: selectedTime,
+  comments
+}, null, 2)}`);
+    setShowForm(false);
+
+  } catch (error: any) {
+    console.error("SUPABASE FEL:", error);
+    alert("Fel: " + error.message);
+  }
+};
   return (
     <section id="bokning" className="py-24 bg-card">
       <div className="container mx-auto px-4">

@@ -46,6 +46,9 @@ const filters: { value: Category; label: string; icon: typeof Car }[] = [
 ];
 
 const GalleryPage = () => {
+  return (
+    <>
+    <Navbar />
   const [activeFilter, setActiveFilter] = useState<Category>("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 

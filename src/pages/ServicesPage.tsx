@@ -122,7 +122,9 @@ const services = [
 
 const ServicesPage = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="pt-24 pb-12 bg-navy-gradient">
         <div className="container mx-auto px-4">

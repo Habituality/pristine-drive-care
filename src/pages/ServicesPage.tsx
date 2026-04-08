@@ -1,5 +1,6 @@
 import { Car, Home, Trees, Check, Clock, Sparkles, ShieldCheck, ArrowRight, ChevronLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar";
 import afterCar from "@/assets/after-car.jpg";
 import afterDriveway from "@/assets/after-driveway.jpg";
 import afterDeck from "@/assets/after-deck.jpg";

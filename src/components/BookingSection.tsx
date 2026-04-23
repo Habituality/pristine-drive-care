@@ -7,6 +7,7 @@ import { useBookingState } from "./booking/useBookingState";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 const timeSlots = [
   "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
@@ -36,38 +37,28 @@ const BookingSection = () => {
   const unavailableTimes = dateStr ? (bookedSlots[dateStr] || []) : [];
  
   const contactComplete = !!(state.name && state.phone && state.email && state.address);
-  const isFormComplete = contactComplete && selectedDate && selectedTime;
+  const isFormComplete = contactComplete && selectedDate && selectedTime !== "";
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+
   if (!isFormComplete) return;
 
   try {
-    console.log("TIME:", selectedTime);
     await createBooking({
-      name: state.name,
-      phone: state.phone,
-      email: state.email,
-      address: state.address,
-      date: selectedDate?.toISOString(),
+      ...state,
+      date: selectedDate ? format(selectedDate, "yyyy-MM-dd") : null,
       time: selectedTime,
-      comments
+      comments,
+      totalPrice: price
     });
 
-   alert(`Bokning skapad!\n\n${JSON.stringify({
-  name: state.name,
-  phone: state.phone,
-  email: state.email,
-  address: state.address,
-  date: selectedDate?.toISOString(),
-  time: selectedTime,
-  comments
-}, null, 2)}`);
+    toast.success("Bokning skickad! 🎉");
     setShowForm(false);
 
-  } catch (error: any) {
-    console.error("SUPABASE FEL:", error);
-    alert("Fel: " + error.message);
+  } catch (error) {
+    console.error(error);
+    toast.error("Kunde inte skicka bokning");
   }
 };
   return (

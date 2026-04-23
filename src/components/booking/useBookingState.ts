@@ -16,6 +16,7 @@ export interface BookingState {
   email: string;
   address: string;
   date: string;
+  time: string;
   // Detailing
   carSize: string;
   carPackage: string;
@@ -39,6 +40,7 @@ const initial: BookingState = {
   email: "",
   address: "",
   date: "",
+  time: "", // 👈 LÄGG TILL
   carSize: "small",
   carPackage: "ext-int",
   carExteriorAddons: [],

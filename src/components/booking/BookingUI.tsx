@@ -10,14 +10,19 @@ interface OptionCardProps {
 
 export const OptionCard = ({ label, selected, onClick, detail }: OptionCardProps) => (
   <button
-  type="button"
-  onClick={() => {
-  }}
-  className="w-full px-8 py-4 font-body text-sm font-semibold tracking-[0.2em] uppercase transition-colors bg-primary text-primary-foreground hover:bg-gold-light"
->
-  TEST BOOKING
-</button>
-)
+    type="button"
+    onClick={onClick}
+    className={cn(
+      "px-4 py-3 border text-left font-body text-sm transition-all duration-200",
+      selected
+        ? "border-primary bg-primary/10 text-foreground"
+        : "border-border bg-secondary text-muted-foreground hover:border-primary/40"
+    )}
+  >
+    <span className="block font-medium">{label}</span>
+    {detail && <span className="block text-xs mt-0.5 opacity-70">{detail}</span>}
+  </button>
+);
 
 interface CheckboxCardProps {
   label: string;

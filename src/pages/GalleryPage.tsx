@@ -14,6 +14,8 @@ import galleryDeck from "@/assets/gallery-deck.jpg";
 import serviceDriveway from "@/assets/service-driveway.jpg";
 import serviceFacade from "@/assets/service-facade.jpg";
 import serviceDetailing from "@/assets/service-detailing.jpg";
+import VolvoSideBefore from "@/assets/volvo-before-side.jpg";
+import VolvoSideAfter from "@/assets/volvo-after-side.jpg";
 
 type Category = "all" | "bil" | "uppfart" | "altan";
 
@@ -37,6 +39,9 @@ const galleryItems: GalleryItem[] = [
   { src: beforeDeck, alt: "Altan före rengöring", category: "altan", label: "Före" },
   { src: afterDeck, alt: "Altan efter rengöring", category: "altan", label: "Efter" },
   { src: galleryDeck, alt: "Altanrengöring", category: "altan" },
+
+  { src: VolvoSideBefore, alt: "Volvo före detailing", category: "bil", label: "Före" },
+  { src: VolvoSideAfter, alt: "Volvo efter detailing", category: "bil", label: "Efter" },
 ];
 
 const filters: { value: Category; label: string; icon: typeof Car }[] = [

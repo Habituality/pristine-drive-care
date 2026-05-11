@@ -19,7 +19,7 @@ const services = [
         ],
       },
     ],
-    addons: ["Clay Bar-behandling", "Vaxning & lackskydd", "Läderrengöring", "Textil- & vinylrengöring"],
+    addons: ["Clay Bar-behandling", "Vaxning & lackskydd", "Motorrumsrengöring", "Läderrengöring", "Textil- & vinylrengöring"],
   },
 ];
 

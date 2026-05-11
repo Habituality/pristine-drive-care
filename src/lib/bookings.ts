@@ -8,15 +8,25 @@ type Booking = {
   date: string | null;
   time: string;
   comments?: string;
-  totalPrice: number; // 👈 viktigt
+
+  totalPrice: number;
+
+  enableDetailing: boolean;
+
+  carSize: string;
+  carPackage: string;
+
+  carExteriorAddons: string[];
+  carInteriorAddons: string[];
 };
 
-export async function createBooking(booking: any) {
+export async function createBooking(booking: Booking) {
   const payload = {
     name: booking.name,
     phone: booking.phone,
     email: booking.email,
     address: booking.address,
+
     date: booking.date,
     time: booking.time,
     comments: booking.comments,
@@ -24,20 +34,12 @@ export async function createBooking(booking: any) {
     total_price: booking.totalPrice,
 
     enabledetailing: booking.enableDetailing,
-    enabledriveway: booking.enableDriveway,
-    enabledeck: booking.enableDeck,
 
     carsize: booking.carSize,
     carpackage: booking.carPackage,
+
     carexterioraddons: booking.carExteriorAddons,
     carinterioraddons: booking.carInteriorAddons,
-
-    drivewaysqm: booking.drivewaySqm,
-    drivewayaddons: booking.drivewayAddons,
-
-    deckmaterial: booking.deckMaterial,
-    decksize: booking.deckSize,
-    deckaddons: booking.deckAddons,
   };
 
   const { data, error } = await supabase

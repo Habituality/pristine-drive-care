@@ -20,7 +20,7 @@ const bookedSlots: Record<string, string[]> = {
 };
 
 const BookingSection = () => {
-  const { state, set, toggleAddon, price, summary, hasAnyService, detailingPrice, drivewayPrice, deckPrice } = useBookingState();
+  const { state, set, toggleAddon, price, summary, hasAnyService, detailingPrice } = useBookingState();
   const [showForm, setShowForm] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState<string>("");
@@ -89,8 +89,6 @@ const handleSubmit = async (e: React.FormEvent) => {
             toggleAddon={toggleAddon}
             price={price}
             detailingPrice={detailingPrice}
-            drivewayPrice={drivewayPrice}
-            deckPrice={deckPrice}
             hasAnyService={hasAnyService}
             onBook={handleBook}
           />

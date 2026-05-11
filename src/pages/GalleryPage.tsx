@@ -1,23 +1,16 @@
 import { useState } from "react";
-import { Car, Home, Trees, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Car, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import beforeCar from "@/assets/before-car.jpg";
 import afterCar from "@/assets/after-car.jpg";
-import beforeDriveway from "@/assets/before-driveway.jpg";
-import afterDriveway from "@/assets/after-driveway.jpg";
-import beforeDeck from "@/assets/before-deck.jpg";
-import afterDeck from "@/assets/after-deck.jpg";
 import heroImage from "@/assets/hero-car.jpg";
 import galleryCarAfter from "@/assets/gallery-car-after.jpg";
-import galleryDeck from "@/assets/gallery-deck.jpg";
-import serviceDriveway from "@/assets/service-driveway.jpg";
-import serviceFacade from "@/assets/service-facade.jpg";
 import serviceDetailing from "@/assets/service-detailing.jpg";
 import VolvoSideBefore from "@/assets/volvo-before-side.jpg";
 import VolvoSideAfter from "@/assets/volvo-after-side.jpg";
 
-type Category = "all" | "bil" | "uppfart" | "altan";
+type Category = "all" | "bil";
 
 interface GalleryItem {
   src: string;
@@ -32,13 +25,6 @@ const galleryItems: GalleryItem[] = [
   { src: heroImage, alt: "Bildetailing närbild", category: "bil" },
   { src: galleryCarAfter, alt: "Polerad bil", category: "bil" },
   { src: serviceDetailing, alt: "Interiör detailing", category: "bil" },
-  { src: beforeDriveway, alt: "Uppfart före tvätt", category: "uppfart", label: "Före" },
-  { src: afterDriveway, alt: "Uppfart efter tvätt", category: "uppfart", label: "Efter" },
-  { src: serviceDriveway, alt: "Uppfartstvätt", category: "uppfart" },
-  { src: serviceFacade, alt: "Fasadrengöring", category: "uppfart" },
-  { src: beforeDeck, alt: "Altan före rengöring", category: "altan", label: "Före" },
-  { src: afterDeck, alt: "Altan efter rengöring", category: "altan", label: "Efter" },
-  { src: galleryDeck, alt: "Altanrengöring", category: "altan" },
 
   { src: VolvoSideBefore, alt: "Volvo före detailing", category: "bil", label: "Före" },
   { src: VolvoSideAfter, alt: "Volvo efter detailing", category: "bil", label: "Efter" },
@@ -47,8 +33,6 @@ const galleryItems: GalleryItem[] = [
 const filters: { value: Category; label: string; icon: typeof Car }[] = [
   { value: "all", label: "Alla", icon: Car },
   { value: "bil", label: "Bildetailing", icon: Car },
-  { value: "uppfart", label: "Uppfart", icon: Home },
-  { value: "altan", label: "Altan", icon: Trees },
 ];
 
 const GalleryPage = () => {

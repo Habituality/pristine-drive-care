@@ -25,9 +25,6 @@ interface Props {
   onBook: () => void;
 }
 
-const serviceToggles = [
-  { key: "enableDetailing" as const, label: "Bil Detailing", icon: Car, time: "1–5 h" },
-];
 
 export default function ServiceConfigurator({ state, set, toggleAddon, price, detailingPrice, hasAnyService, onBook }: Props) {
   const showExtAddons = state.carPackage === "ext-int" || state.carPackage === "exterior-only";
@@ -36,40 +33,14 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, de
 
   return (
     <div className="space-y-8">
-      {/* Service toggles */}
-      <div>
-        <SectionLabel>Välj tjänster</SectionLabel>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {serviceToggles.map((t) => (
-            <button
-              key={t.key}
-              type="button"
-              onClick={() => set(t.key, !state[t.key])}
-              className={cn(
-                "flex flex-col items-center gap-2 px-5 py-4 font-body text-sm font-medium tracking-wide uppercase transition-all duration-200 border",
-                state[t.key]
-                  ? "border-primary bg-primary/10 text-foreground"
-                  : "border-border bg-secondary text-muted-foreground hover:border-primary/50"
-              )}
-            >
-              <t.icon className="w-5 h-5" />
-              <span>{t.label}</span>
-              <span className="flex items-center gap-1 text-xs normal-case tracking-normal opacity-70">
-                <Clock className="w-3 h-3" /> {t.time}
-              </span>
-            </button>
-          ))}
-        </div>
-        <p className="text-xs text-muted-foreground font-body mt-2">Du kan välja flera tjänster samtidigt</p>
-      </div>
-
+      
       {/* ====== Detailing ====== */}
       {state.enableDetailing && (
         <div className="space-y-6 animate-fade-in-up border border-border p-5 md:p-6 bg-secondary/50">
           <div className="flex items-center gap-2 mb-1">
             <Car className="w-5 h-5 text-primary" />
             <h3 className="font-display text-lg font-bold">Bil Detailing</h3>
-            <span className="flex items-center gap-1 text-xs text-muted-foreground font-body ml-1"><Clock className="w-3 h-3" /> 2–5 h</span>
+            <span className="flex items-center gap-1 text-xs text-muted-foreground font-body ml-1"><Clock className="w-3 h-3" /> 1–5 h</span>
             {detailingPrice > 0 && <span className="ml-auto font-body text-sm text-primary font-semibold">{detailingPrice} kr</span>}
           </div>
           <div>

@@ -16,7 +16,6 @@ const FooterSection = () => {
             <h4 className="font-display text-lg font-bold mb-4">Tjänster</h4>
             <ul className="space-y-2">
               <li><a href="#tjanster" className="text-muted-foreground hover:text-primary transition-colors font-body text-sm">Bilvård & Detailing</a></li>
-              <li><a href="#tjanster" className="text-muted-foreground hover:text-primary transition-colors font-body text-sm">Uppfart & Altan</a></li>
               
             </ul>
           </div>

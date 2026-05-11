@@ -1,11 +1,7 @@
-import { Car, Home, Trees, ArrowRight } from "lucide-react";
+import { Car, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import beforeCar from "@/assets/before-car.jpg";
 import afterCar from "@/assets/after-car.jpg";
-import beforeDriveway from "@/assets/before-driveway.jpg";
-import afterDriveway from "@/assets/after-driveway.jpg";
-import beforeDeck from "@/assets/before-deck.jpg";
-import afterDeck from "@/assets/after-deck.jpg";
 
 const comparisons = [
   {
@@ -15,22 +11,6 @@ const comparisons = [
     after: afterCar,
     altBefore: "Bil före detailing",
     altAfter: "Bil efter detailing",
-  },
-  {
-    icon: Home,
-    title: "Uppfartstvätt",
-    before: beforeDriveway,
-    after: afterDriveway,
-    altBefore: "Uppfart före högtryckstvätt",
-    altAfter: "Uppfart efter högtryckstvätt",
-  },
-  {
-    icon: Trees,
-    title: "Altantvätt",
-    before: beforeDeck,
-    after: afterDeck,
-    altBefore: "Altan före rengöring",
-    altAfter: "Altan efter rengöring",
   },
 ];
 

@@ -6,7 +6,7 @@ const services = [
     title: "Bil Detailing",
     description:
       "Professionell utvändig och invändig rengöring som ger din bil showroom-känsla. Vi kommer till dig.",
-    time: "2–5 timmar",
+    time: "1–5 timmar",
     packages: [
       {
         name: "Exteriör + Interiör",
@@ -20,44 +20,6 @@ const services = [
       },
     ],
     addons: ["Clay Bar-behandling", "Vaxning & lackskydd", "Läderrengöring", "Textil- & vinylrengöring"],
-  },
-  {
-    icon: Home,
-    title: "Uppfart",
-    description:
-      "Högtryckstvätt med rengöringsmedel som återställer sten och plattor till nyskick.",
-    time: "1–3 timmar",
-    packages: [
-      {
-        name: "Högtryckstvätt",
-        price: "från 400 kr + 30 kr/m²",
-        features: [
-          "Högtryckstvätt med rengöringsmedel",
-          "Ogräs- & smutsborttagning",
-          "Anpassat efter yta",
-        ],
-      },
-    ],
-    addons: ["Moss- & Algrengöring"],
-  },
-  {
-    icon: Trees,
-    title: "Altan",
-    description:
-      "Skonsam högtryckstvätt anpassad för trä och komposit. Nytt liv åt din altan.",
-    time: "1–3 timmar",
-    packages: [
-      {
-        name: "Högtryckstvätt",
-        price: "från 500 kr + 30 kr/m²",
-        features: [
-          "Högtryckstvätt med rengöringsmedel",
-          "Anpassat för trä & komposit",
-          "Varsam behandling",
-        ],
-      },
-    ],
-    addons: ["Moss- & Algrengöring"],
   },
 ];
 
@@ -73,11 +35,11 @@ const ServicesSection = () => {
             Kvalitet i varje <span className="text-gold-gradient">detalj</span>
           </h2>
           <p className="mt-4 text-muted-foreground font-body max-w-lg mx-auto">
-            Tre specialiserade tjänster – välj en eller kombinera flera vid bokning.
+            Exklusiv bilvård på plats – för dig som vill ha en ren, skyddad och välvårdad bil utan att lyfta ett finger.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid gap-6 max-w-xl mx-auto">
           {services.map((service) => (
             <div
               key={service.title}

@@ -2,8 +2,8 @@ import { Star, Shield, Clock } from "lucide-react";
 
 const testimonials = [
   { name: "Anna L.", text: "Helt fantastiskt resultat! Min bil ser ut som ny. Kommer definitivt anlita Glanzio igen." },
-  { name: "Erik S.", text: "Uppfarten hade inte sett så bra ut på 10 år. Proffsigt och snabbt. Rekommenderas varmt!" },
-  { name: "Maria K.", text: "Smidig bokning och otroligt nöjd med altantvätten. Fem stjärnor utan tvekan." },
+  { name: "Erik S.", text: "Bilen hade inte sett så bra ut på 10 år. Proffsigt och snabbt. Rekommenderas varmt!" },
+  { name: "Maria K.", text: "Smidig bokning och otroligt nöjd med biltvätten. Fem stjärnor utan tvekan." },
 ];
 
 const AboutSection = () => {

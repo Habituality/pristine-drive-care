@@ -3,8 +3,6 @@ import { OptionCard, CheckboxCard, SectionLabel, PriceDisplay } from "./BookingU
 import {
   carSizes,
   carPackages,
-  exteriorAddons,
-  interiorAddons,
 } from "./pricingData";
 import type { BookingState } from "./useBookingState";
 import { cn } from "@/lib/utils";
@@ -12,11 +10,6 @@ import { cn } from "@/lib/utils";
 interface Props {
   state: BookingState;
   set: <K extends keyof BookingState>(key: K, value: BookingState[K]) => void;
-
-  toggleAddon: (
-    key: "carExteriorAddons" | "carInteriorAddons",
-    id: string
-  ) => void;
 
   price: number;
   detailingPrice: number;
@@ -26,10 +19,8 @@ interface Props {
 }
 
 
-export default function ServiceConfigurator({ state, set, toggleAddon, price, detailingPrice, hasAnyService, onBook }: Props) {
-  const showExtAddons = state.carPackage === "ext-int" || state.carPackage === "exterior-only";
-  const showIntAddons = state.carPackage === "ext-int" || state.carPackage === "interior-only";
-  const sizeIdx = carSizes.findIndex((s) => s.id === state.carSize);
+export default function ServiceConfigurator({ state, set, price, detailingPrice, hasAnyService, onBook }: Props) {
+
 
   return (
     <div className="space-y-8">
@@ -59,26 +50,6 @@ export default function ServiceConfigurator({ state, set, toggleAddon, price, de
               ))}
             </div>
           </div>
-          {showExtAddons && (
-            <div>
-              <SectionLabel>Exteriör-tillägg</SectionLabel>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {exteriorAddons.map((a) => (
-                  <CheckboxCard key={a.id} label={a.label} price={a.basePrice + a.sizeSurcharge * sizeIdx} checked={state.carExteriorAddons.includes(a.id)} onChange={() => toggleAddon("carExteriorAddons", a.id)} />
-                ))}
-              </div>
-            </div>
-          )}
-          {showIntAddons && (
-            <div>
-              <SectionLabel>Interiör-tillägg</SectionLabel>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {interiorAddons.map((a) => (
-                  <CheckboxCard key={a.id} label={a.label} price={a.basePrice + a.sizeSurcharge * sizeIdx} checked={state.carInteriorAddons.includes(a.id)} onChange={() => toggleAddon("carInteriorAddons", a.id)} />
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       )}
 

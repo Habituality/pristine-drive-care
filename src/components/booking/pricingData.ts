@@ -1,4 +1,3 @@
-// ====== Bil Detailing ======
 export const carSizes = [
   { id: "small", label: "Liten bil", baseSurcharge: 0 },
   { id: "medium", label: "Mellanstor", baseSurcharge: 100 },
@@ -6,19 +5,12 @@ export const carSizes = [
 ] as const;
 
 export const carPackages = [
-  { id: "ext-int", label: "Exteriör + Interiör", base: 995 },
-  { id: "exterior-only", label: "Bara Exteriör", base: 495 },
-  { id: "interior-only", label: "Bara Interiör", base: 595 },
-] as const;
+  { id: "ext-int", label: "Exteriör + Interiör (Standard)", base: 995 },
+  { id: "exterior-only", label: "Bara Exteriör (Standard)", base: 595 },
+  { id: "interior-only", label: "Bara Interiör (Standard)", base: 595 },
 
-export const exteriorAddons = [
-  { id: "clay-bar", label: "Clay Bar", basePrice: 495, sizeSurcharge: 50 },
-  { id: "wax", label: "Vaxning", basePrice: 495, sizeSurcharge: 50 },
-  {id: "engine-bay", label: "Motorrumsrengöring", basePrice: 395, sizeSurcharge: 50,
-},
-] as const;
-
-export const interiorAddons = [
- { id: "interior-conditioning", label: "Interiör rekonditionering", basePrice: 495, sizeSurcharge: 50, },
+  { id: "ext-int-premium", label: "Exteriör + Interiör (Premium)", base: 1995 },
+  { id: "exterior-only-premium", label: "Bara Exteriör (Premium)", base: 1195 },
+  { id: "interior-only-premium", label: "Bara Interiör (Premium)", base: 1195 },
 ] as const;
 

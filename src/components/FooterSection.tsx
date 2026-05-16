@@ -30,7 +30,7 @@ const FooterSection = () => {
                 <Mail className="w-4 h-4 text-primary" /> info@glanzio.se
               </a>
               <div className="flex items-center gap-3 text-muted-foreground font-body text-sm">
-                <MapPin className="w-4 h-4 text-primary" /> Stockholm
+                <MapPin className="w-4 h-4 text-primary" /> Stockholm & Storstockholm 
               </div>
             </div>
           </div>

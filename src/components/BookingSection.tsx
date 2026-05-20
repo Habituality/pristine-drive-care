@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { useBookingState } from "./booking/useBookingState";
 import ServiceConfigurator from "./booking/ServiceConfigurator";
 
+import { sendBookingEmails } from "../lib/resend";
+
 const timeSlots = [
   "06:00","07:00","08:00","09:00","10:00","11:00",
   "12:00","13:00","14:00","15:00","16:00","17:00",
@@ -50,26 +52,42 @@ const BookingSection = () => {
     return e;
   }
 
+  // replace the existing handleBook:
   const handleBook = async () => {
-    const e = validate();
-    setErrors(e);
-    if (Object.keys(e).length > 0) return;
+      const e = validate();
+      setErrors(e);
+      if (Object.keys(e).length > 0) return;
 
-    setIsSubmitting(true);
-    try {
-      await createBooking({
-        name: state.name,
-        phone: state.phone,
-        email: state.email,
-        address: state.address,
-        date: state.date,
-        time: state.time,
-        price,
-        comments: state.comments,
-        serviceArea: state.serviceArea,
-        isPremium: state.isPremium,
-        carSize: state.carSize,
-      });
+      setIsSubmitting(true);
+      try {
+        await createBooking({
+          name: state.name,
+          phone: state.phone,
+          email: state.email,
+          address: state.address,
+          date: state.date,
+          time: state.time,
+          price,
+          comments: state.comments,
+          serviceArea: state.serviceArea,
+          isPremium: state.isPremium,
+          carSize: state.carSize,
+        });
+
+        await sendBookingEmails({
+          name: state.name,
+          phone: state.phone,
+          email: state.email,
+          address: state.address,
+          date: state.date,
+          time: state.time,
+          price,
+          comments: state.comments,
+          serviceArea: state.serviceArea,
+          isPremium: state.isPremium,
+          carSize: state.carSize,
+        });
+
       toast.success("Bokning skickad! 🎉");
       reset();
       setErrors({});

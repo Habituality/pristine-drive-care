@@ -1,6 +1,6 @@
 const RESEND_API_KEY = import.meta.env.VITE_RESEND_API_KEY as string;
 const OWNER_EMAIL = import.meta.env.VITE_OWNER_EMAIL as string;
-const FROM_EMAIL = "Glanzio Bilvård & Detailing <onboarding@resend.dev>";
+const FROM_EMAIL = "Glanzio Bilvård & Detailing <onboarding@glanziostockholm.se>";
 
 interface BookingEmailData {
   name: string;

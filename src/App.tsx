@@ -7,6 +7,12 @@ import Index from "./pages/Index.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";
 import ServicesPage from "./pages/ServicesPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import AdminLogin from "./pages/admin/AdminLogin.tsx";
+import AdminLayout from "./pages/admin/AdminLayout.tsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
+import AdminBookings from "./pages/admin/AdminBookings.tsx";
+import { ProtectedAdminRoute } from "./pages/admin/ProtectedAdminRoute.tsx";
+import { AdminAuthProvider } from "./lib/adminAuth.tsx";
 
 const queryClient = new QueryClient();
 
@@ -15,15 +21,31 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/galleri" element={<GalleryPage />} />
-          <Route path="/tjanster-fordelar" element={<ServicesPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AdminAuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/galleri" element={<GalleryPage />} />
+            <Route path="/tjanster-fordelar" element={<ServicesPage />} />
+
+            {/* Admin */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout />
+                </ProtectedAdminRoute>
+              }
+            >
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="bookings" element={<AdminBookings />} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </AdminAuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

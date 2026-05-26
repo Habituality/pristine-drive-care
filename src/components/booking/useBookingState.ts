@@ -17,6 +17,8 @@ export interface BookingState {
   carSize: CarSizeId;
   serviceArea: ServiceArea;
   isPremium: boolean;
+  // Terms
+  acceptedTerms: boolean;
 }
 
 const initial: BookingState = {
@@ -31,15 +33,20 @@ const initial: BookingState = {
   carSize: "small",
   serviceArea: "ext-int",
   isPremium: false,
+  acceptedTerms: false,
 };
 
 export function useBookingState() {
   const [state, setState] = useState<BookingState>(initial);
+  const [currentStep, setCurrentStep] = useState<number>(1);
 
   const set = <K extends keyof BookingState>(key: K, value: BookingState[K]) =>
     setState((prev) => ({ ...prev, [key]: value }));
 
-  const reset = () => setState(initial);
+  const reset = () => {
+    setState(initial);
+    setCurrentStep(1);
+  };
 
   const detailingPrice = useMemo(() => {
     if (!state.enableDetailing) return 0;
@@ -65,5 +72,15 @@ export function useBookingState() {
     return lines.join("\n");
   }, [state.enableDetailing, state.carSize, state.serviceArea, state.isPremium, detailingPrice, price]);
 
-  return { state, set, reset, price, summary, hasAnyService, detailingPrice };
+  return {
+    state,
+    set,
+    reset,
+    price,
+    summary,
+    hasAnyService,
+    detailingPrice,
+    currentStep,
+    setCurrentStep,
+  };
 }

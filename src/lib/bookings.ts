@@ -16,6 +16,15 @@ export type Booking = {
   comments?: string;
 };
 
+export async function getBookedTimesForDate(date: string): Promise<string[]> {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("time")
+    .eq("date", date);
+  if (error) return [];
+  return (data ?? []).map((row) => row.time as string);
+}
+
 export async function createBooking(booking: Booking) {
   const { data, error } = await supabase
     .from("bookings")

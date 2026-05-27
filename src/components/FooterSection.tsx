@@ -47,6 +47,13 @@ const FooterSection = () => {
           >
             Integritetspolicy
           </a>
+          <span className="hidden sm:block text-muted-foreground/40 text-xs">|</span>
+          <a
+            href="/bokningsvillkor"
+            className="text-muted-foreground hover:text-primary transition-colors font-body text-xs tracking-wider"
+          >
+            Bokningsvillkor
+          </a>
         </div>
       </div>
     </footer>

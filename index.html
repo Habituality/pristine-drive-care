@@ -1,35 +1,95 @@
-  <!doctype html>
+  <!-- index.html -->
+<!doctype html>
 <html lang="sv">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Default title/description — overridden per page via useSEO hook -->
     <title>Glanzio Stockholm | Mobil Bilvård & Detailing</title>
-
-    <meta
-      name="description"
-      content="Professionell mobil bilvård och detailing i Stockholm. Vi kommer till dig och gör bilen som ny."
-    />
-
+    <meta name="description" content="Professionell mobil bilvård och detailing i Stockholm. Vi kommer till dig och gör bilen som ny – från 595 kr." />
     <meta name="author" content="Glanzio Stockholm" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://glanziostockholm.se/" />
 
     <!-- Open Graph -->
-    <meta
-      property="og:title"
-      content="Glanzio Stockholm | Mobil Bilvård & Detailing"
-    />
-
-    <meta
-      property="og:description"
-      content="Professionell mobil bilvård och detailing direkt på plats i Stockholm."
-    />
-
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Glanzio Stockholm" />
+    <meta property="og:title" content="Glanzio Stockholm | Mobil Bilvård & Detailing" />
+    <meta property="og:description" content="Professionell mobil bilvård och detailing direkt på plats i Stockholm. Boka online – vi kommer till dig." />
+    <meta property="og:url" content="https://glanziostockholm.se/" />
+    <meta property="og:image" content="https://glanziostockholm.se/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="sv_SE" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Glanzio Stockholm | Mobil Bilvård & Detailing" />
+    <meta name="twitter:description" content="Professionell mobil bilvård och detailing direkt på plats i Stockholm." />
+    <meta name="twitter:image" content="https://glanziostockholm.se/og-image.jpg" />
 
-    <!-- GS Logo -->
+    <!-- Schema: LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://glanziostockholm.se",
+      "name": "Glanzio Stockholm",
+      "description": "Professionell mobil bilvård och detailing i Stockholm. Vi kommer till dig och gör bilen som ny.",
+      "url": "https://glanziostockholm.se",
+      "telephone": "+46761865882",
+      "image": "https://glanziostockholm.se/og-image.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Stockholm",
+        "addressRegion": "Stockholms län",
+        "addressCountry": "SE"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Stockholm"
+      },
+      "priceRange": "595–1995 kr",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday"],
+          "opens": "09:00",
+          "closes": "16:00"
+        }
+      ],
+      "serviceType": ["Bilvård", "Bildetailing", "Mobil bilrekond", "Biltvätt"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Bilvård & Detailing paket",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Standard Bilvård",
+            "price": "595",
+            "priceCurrency": "SEK",
+            "description": "Professionell bilvård med utvändig handtvätt, fälgrengöring, dammsugning och fönsterputs."
+          },
+          {
+            "@type": "Offer",
+            "name": "Premium Detailing",
+            "price": "1195",
+            "priceCurrency": "SEK",
+            "description": "Djupgående detailing med Clay Bar, vaxning, lackskydd, läderrengöring och UV-skydd."
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- Icons -->
     <link rel="icon" type="image/png" href="/gslogo.png" />
     <link rel="shortcut icon" href="/gslogo.png" />
     <link rel="apple-touch-icon" href="/gslogo.png" />

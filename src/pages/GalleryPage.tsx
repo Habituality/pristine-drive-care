@@ -1,3 +1,4 @@
+// src/pages/GalleryPage.tsx
 import { useState } from "react";
 import { Car, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -9,6 +10,8 @@ import galleryCarAfter from "@/assets/gallery-car-after.jpg";
 import serviceDetailing from "@/assets/service-detailing.jpg";
 import VolvoSideBefore from "@/assets/volvo-before-side.jpg";
 import VolvoSideAfter from "@/assets/volvo-after-side.jpg";
+import { useSEO } from "@/hooks/useSEO";
+import { makeCanonical } from "@/config/seo";
 
 type Category = "all" | "bil";
 
@@ -20,14 +23,13 @@ interface GalleryItem {
 }
 
 const galleryItems: GalleryItem[] = [
-  { src: beforeCar, alt: "Bil före detailing", category: "bil", label: "Före" },
-  { src: afterCar, alt: "Bil efter detailing", category: "bil", label: "Efter" },
-  { src: heroImage, alt: "Bildetailing närbild", category: "bil" },
-  { src: galleryCarAfter, alt: "Polerad bil", category: "bil" },
-  { src: serviceDetailing, alt: "Interiör detailing", category: "bil" },
-
-  { src: VolvoSideBefore, alt: "Volvo före detailing", category: "bil", label: "Före" },
-  { src: VolvoSideAfter, alt: "Volvo efter detailing", category: "bil", label: "Efter" },
+  { src: beforeCar, alt: "Bil före professionell detailing i Stockholm", category: "bil", label: "Före" },
+  { src: afterCar, alt: "Bil efter professionell detailing i Stockholm", category: "bil", label: "Efter" },
+  { src: heroImage, alt: "Mobil bildetailing Stockholm närbild", category: "bil" },
+  { src: galleryCarAfter, alt: "Polerad och vaxad bil efter Premium detailing", category: "bil" },
+  { src: serviceDetailing, alt: "Interiör rengöring och detailing", category: "bil" },
+  { src: VolvoSideBefore, alt: "Volvo före bilrekond Stockholm", category: "bil", label: "Före" },
+  { src: VolvoSideAfter, alt: "Volvo efter bilrekond Stockholm", category: "bil", label: "Efter" },
 ];
 
 const filters: { value: Category; label: string; icon: typeof Car }[] = [
@@ -36,6 +38,14 @@ const filters: { value: Category; label: string; icon: typeof Car }[] = [
 ];
 
 const GalleryPage = () => {
+  useSEO({
+    title: "Galleri – Innan & Efter Detailing Stockholm | Glanzio",
+    description: "Se verkliga resultat från vår professionella bilvård i Stockholm. Innan och efter bilder från Standard och Premium bildetailing – boka din tid idag.",
+    canonical: makeCanonical("/galleri"),
+    ogTitle: "Innan & Efter – Bildetailing Stockholm | Glanzio",
+    ogDescription: "Se vad professionell bilvård och detailing gör för din bil. Riktiga resultat från kunder i Stockholm.",
+  });
+
   const [activeFilter, setActiveFilter] = useState<Category>("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -58,10 +68,10 @@ const GalleryPage = () => {
             </Link>
             <p className="font-body text-sm tracking-[0.3em] uppercase text-primary mb-3">Galleri</p>
             <h1 className="font-display text-3xl md:text-5xl font-bold">
-              Före & <span className="text-gold-gradient">efter</span>
+              Innan & <span className="text-gold-gradient">efter</span>
             </h1>
             <p className="mt-4 text-muted-foreground font-body max-w-lg">
-              Bläddra bland våra resultat och se vilken skillnad professionell rengöring gör.
+              Riktiga resultat från vår mobila bildetailing i Stockholm. Se skillnaden professionell bilvård gör.
             </p>
           </div>
         </div>
@@ -125,7 +135,7 @@ const GalleryPage = () => {
             Redo att se <span className="text-gold-gradient">skillnaden</span>?
           </h2>
           <p className="text-muted-foreground font-body mb-8 max-w-md mx-auto">
-            Boka din tjänst idag och ge ditt hem eller din bil den behandling den förtjänar.
+            Boka din bilvård i Stockholm idag – vi kommer till dig och gör bilen som ny.
           </p>
           <Link
             to="/#bokning"

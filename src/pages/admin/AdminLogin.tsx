@@ -1,13 +1,23 @@
+// src/pages/admin/AdminLogin.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAdminAuth } from "@/lib/adminAuth";
 import { cn } from "@/lib/utils";
 import { AlertCircle, LogIn } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
+import { makeCanonical } from "@/config/seo";
 
 export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const { login, error, isAuthenticated } = useAdminAuth();
   const navigate = useNavigate();
+
+  useSEO({
+    title: "Admin | Glanzio Stockholm",
+    description: "Adminpanel för Glanzio Stockholm.",
+    canonical: makeCanonical("/admin/login"),
+    noindex: true,
+  });
 
   if (isAuthenticated) {
     navigate("/admin/dashboard", { replace: true });

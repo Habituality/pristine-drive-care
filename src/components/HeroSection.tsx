@@ -1,3 +1,4 @@
+// src/components/HeroSection.tsx
 import heroImage from "@/assets/hero-car.jpg";
 
 const HeroSection = () => {
@@ -9,6 +10,7 @@ const HeroSection = () => {
         className="absolute inset-0 w-full h-full object-cover"
         width={1920}
         height={1080}
+        fetchPriority="high"
       />
       <div className="absolute inset-0 bg-background/70" />
 

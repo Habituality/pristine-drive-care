@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useSEO } from "@/hooks/useSEO";
 import { fetchBookings, deleteBooking, bookingsToCSV, AdminBooking } from "@/lib/admin";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
@@ -21,6 +22,12 @@ const SIZE_LABELS: Record<string, string> = {
 };
 
 export default function AdminBookings() {
+  useSEO({
+    title: "Bokningar | Glanzio Admin",
+    description: "Adminpanel – hantera bokningar.",
+    noindex: true,
+  });
+
   const [bookings, setBookings] = useState<AdminBooking[]>([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(0);

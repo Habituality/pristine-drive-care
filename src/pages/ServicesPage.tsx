@@ -1,7 +1,11 @@
+// src/pages/ServicesPage.tsx
+import { useEffect } from "react";
 import { Car, Check, Clock, ArrowRight, ChevronLeft, Sparkles, Shield, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import afterCar from "@/assets/after-car.jpg";
+import { useSEO } from "@/hooks/useSEO";
+import { makeCanonical } from "@/config/seo";
 
 const packages = [
   {
@@ -39,7 +43,58 @@ const packages = [
   },
 ];
 
+const faqItems = [
+  {
+    q: "Kommer ni till hela Stockholm?",
+    a: "Ja, vi är helt mobila och kommer till dig oavsett var i Stockholm du befinner dig – hemma, på jobbet eller någon annanstans.",
+  },
+  {
+    q: "Hur lång tid tar en bilvård?",
+    a: "Standard-paketet tar 1–3 timmar, Premium-paketet tar 3–5 timmar beroende på bilens storlek och skick.",
+  },
+  {
+    q: "Vad ingår i Standard vs Premium?",
+    a: "Standard inkluderar utvändig handtvätt, fälgrengöring, dammsugning och fönsterputs. Premium lägger till Clay Bar, vaxning, lackskydd, läderrengöring och UV-skydd.",
+  },
+  {
+    q: "Vad kostar bilvård i Stockholm?",
+    a: "Standard-paketet börjar från 595 kr och Premium från 1 195 kr. Slutpriset beror på bilens storlek.",
+  },
+  {
+    q: "Behöver jag förbereda bilen inför besöket?",
+    a: "Nej, det behöver du inte. Se bara till att det finns tillräckligt med utrymme runt bilen för oss att arbeta.",
+  },
+];
+
 const ServicesPage = () => {
+  useSEO({
+    title: "Bilvård & Detailing i Stockholm | Glanzio",
+    description: "Professionell mobil bildetailing i Stockholm – Standard från 595 kr, Premium från 1195 kr. Utvändig tvätt, Clay Bar, lackskydd och mer. Vi kommer till dig.",
+    canonical: makeCanonical("/tjanster-fordelar"),
+    ogTitle: "Bilvård & Detailing Paket Stockholm | Glanzio",
+    ogDescription: "Standard (595 kr) eller Premium (1195 kr) bilvård i Stockholm. Mobil detailing – vi kommer till din dörr.",
+  });
+
+  // FAQ-schema ger chans till featured snippets i Google
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = "faq-schema";
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqItems.map(({ q, a }) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    });
+    document.head.appendChild(script);
+    return () => {
+      document.getElementById("faq-schema")?.remove();
+    };
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -53,24 +108,29 @@ const ServicesPage = () => {
             </Link>
             <p className="font-body text-sm tracking-[0.3em] uppercase text-primary mb-3">Tjänster</p>
             <h1 className="font-display text-3xl md:text-5xl font-bold">
-              Tjänster & <span className="text-gold-gradient">fördelar</span>
+              Mobil bilvård & detailing{" "}
+              <span className="text-gold-gradient">i Stockholm</span>
             </h1>
             <p className="mt-4 text-muted-foreground font-body max-w-lg">
-              Läs mer om våra tjänster, vad de innebär och vilka fördelar de ger dig som kund.
+              Professionell bilrekond och detailing direkt till din dörr. Välj mellan Standard eller Premium – vi tar hand om resten.
             </p>
           </div>
         </div>
 
         {/* Hero image */}
         <div className="relative h-64 md:h-96 overflow-hidden">
-          <img src={afterCar} alt="Bil Detailing" className="w-full h-full object-cover" />
+          <img
+            src={afterCar}
+            alt="Professionell bildetailing och bilrekond i Stockholm"
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center">
             <div className="flex items-center gap-3 justify-center">
               <div className="w-10 h-10 border border-primary/50 bg-background/80 backdrop-blur flex items-center justify-center">
                 <Car className="w-5 h-5 text-primary" />
               </div>
-              <h2 className="font-display text-2xl md:text-3xl font-bold">Bil Detailing</h2>
+              <p className="font-display text-2xl md:text-3xl font-bold">Bil Detailing Stockholm</p>
             </div>
           </div>
         </div>
@@ -80,10 +140,10 @@ const ServicesPage = () => {
           <div className="container mx-auto px-4 max-w-3xl">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="border border-border bg-secondary/40 p-6">
-                <h3 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
+                <h2 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-primary" />
                   Problem vi löser
-                </h3>
+                </h2>
                 <ul className="space-y-2.5 font-body text-sm text-muted-foreground">
                   {["Repig och matt lack", "Smutsig interiör", "Fälgar fulla av bromsdamm", "Dålig sikt i rutor"].map((p) => (
                     <li key={p} className="flex items-start gap-2">
@@ -93,12 +153,12 @@ const ServicesPage = () => {
                 </ul>
               </div>
               <div className="border border-primary/30 bg-secondary/40 p-6">
-                <h3 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
+                <h2 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
                   <ShieldCheck className="w-5 h-5 text-primary" />
-                  Fördelar
-                </h3>
+                  Fördelar med Glanzio
+                </h2>
                 <ul className="space-y-2.5 font-body text-sm text-muted-foreground">
-                  {["Som ny bil-känsla", "Höjer andrahandsvärde", "Skydd mot UV & smuts", "Vi kommer till dig"].map((f) => (
+                  {["Som ny bil-känsla", "Höjer andrahandsvärde", "Skydd mot UV & smuts", "Vi kommer till dig i hela Stockholm"].map((f) => (
                     <li key={f} className="flex items-start gap-2">
                       <Check className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" /> {f}
                     </li>
@@ -140,7 +200,6 @@ const ServicesPage = () => {
                   )}
 
                   <div className="p-7 flex flex-col flex-1">
-
                     <div className="flex items-center gap-3 mb-5">
                       <div className={`w-10 h-10 border flex items-center justify-center shrink-0 ${
                         pkg.accent ? "border-primary/50 bg-primary/10" : "border-border bg-secondary"
@@ -191,7 +250,6 @@ const ServicesPage = () => {
                       Boka {pkg.tier.toLowerCase()}
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                     </Link>
-
                   </div>
 
                   {pkg.accent && (
@@ -203,13 +261,33 @@ const ServicesPage = () => {
           </div>
         </div>
 
+        {/* FAQ — boosts long-tail keyword rankings */}
+        <div className="py-16 bg-card">
+          <div className="container mx-auto px-4 max-w-2xl">
+            <div className="text-center mb-10">
+              <p className="font-body text-sm tracking-[0.3em] uppercase text-primary mb-3">Vanliga frågor</p>
+              <h2 className="font-display text-2xl md:text-3xl font-bold">
+                Frågor & <span className="text-gold-gradient">svar</span>
+              </h2>
+            </div>
+            <dl className="space-y-6">
+              {faqItems.map(({ q, a }) => (
+                <div key={q} className="border border-border bg-secondary/30 p-6">
+                  <dt className="font-display text-base font-bold mb-2">{q}</dt>
+                  <dd className="font-body text-sm text-muted-foreground leading-relaxed">{a}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+
         {/* CTA */}
-        <div className="py-20 bg-card text-center">
+        <div className="py-20 bg-navy-gradient text-center">
           <h2 className="font-display text-2xl md:text-4xl font-bold mb-4">
             Redo att <span className="text-gold-gradient">boka</span>?
           </h2>
           <p className="text-muted-foreground font-body mb-8 max-w-md mx-auto">
-            Konfigurera din tjänst, välj tillägg och boka direkt – vi kommer till dig.
+            Konfigurera din tjänst, välj paket och boka direkt – vi kommer till dig i Stockholm.
           </p>
           <Link
             to="/#bokning"

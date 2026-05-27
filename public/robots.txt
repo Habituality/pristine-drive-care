@@ -1,14 +1,14 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+# Glanzio Stockholm robots.txt
 
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /admin/login
+Disallow: /admin/dashboard
+Disallow: /admin/bookings
+
+# Crawl-delay (optional - only if server is slow)
+# Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://glanziostockholm.se/sitemap.xml

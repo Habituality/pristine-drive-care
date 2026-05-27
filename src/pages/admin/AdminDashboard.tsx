@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSEO } from "@/hooks/useSEO";
 import { fetchStats, BookingStats } from "@/lib/admin";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { BookOpen, DollarSign, TrendingUp, Star } from "lucide-react";
@@ -37,6 +38,12 @@ function getRangeDates(range: Range): { start: string; end: string } {
 }
 
 export default function AdminDashboard() {
+  useSEO({
+    title: "Dashboard | Glanzio Admin",
+    description: "Adminpanel – statistik och översikt.",
+    noindex: true,
+  });
+
   const [range, setRange] = useState<Range>("month");
   const [stats, setStats] = useState<BookingStats | null>(null);
   const [loading, setLoading] = useState(true);

@@ -111,7 +111,9 @@ export default function Step7Confirm({
         <span className="font-body text-sm text-foreground leading-relaxed">
           Jag godkänner{" "}
           <a
-            href="#"
+            href="/integritetspolicy"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             className="text-primary underline hover:text-gold-light transition-colors"
           >

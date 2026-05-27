@@ -128,6 +128,18 @@ export default function Step6Contact({
         </div>
       </div>
 
+      <p className="font-body text-xs text-muted-foreground leading-relaxed mt-1">
+        Dina uppgifter används enbart för att bekräfta och genomföra din bokning.{" "}
+        <a
+          href="/integritetspolicy"
+          className="text-primary underline hover:text-gold-light transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Läs vår integritetspolicy →
+        </a>
+      </p>
+
       <NavButtons onBack={onBack} onNext={handleNext} nextDisabled={!isValid} />
     </StepContainer>
   );

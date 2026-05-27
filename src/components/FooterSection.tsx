@@ -36,10 +36,17 @@ const FooterSection = () => {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 text-center">
+        <div className="border-t border-border pt-8 flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
           <p className="text-muted-foreground font-body text-xs tracking-wider">
             © {new Date().getFullYear()} Glanzio Bil & Hemvård. Alla rättigheter förbehållna.
           </p>
+          <span className="hidden sm:block text-muted-foreground/40 text-xs">|</span>
+          <a
+            href="/integritetspolicy"
+            className="text-muted-foreground hover:text-primary transition-colors font-body text-xs tracking-wider"
+          >
+            Integritetspolicy
+          </a>
         </div>
       </div>
     </footer>

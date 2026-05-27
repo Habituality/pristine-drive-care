@@ -16,6 +16,15 @@ async function main() {
     renderer: new PuppeteerRenderer({
       // Wait 2.5 s for React to finish mounting — plenty for this 3-page site
       renderAfterTime: 2500,
+      // Required for Vercel/CI environments where Chrome sandbox is blocked
+      puppeteerOptions: {
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu',
+        ],
+      },
     }),
   });
 

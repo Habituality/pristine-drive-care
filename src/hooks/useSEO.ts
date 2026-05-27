@@ -55,8 +55,9 @@ export const useSEO = ({
     setMeta('meta[property="og:description"]', ogDescription ?? description);
     setMeta('meta[property="og:image"]', ogImage ?? SEO_DEFAULT_IMAGE);
 
+    // Always set og:url — use canonical if provided, otherwise current URL
+    setMeta('meta[property="og:url"]', canonical ?? window.location.href);
     if (canonical) {
-      setMeta('meta[property="og:url"]', canonical);
       setLink("canonical", canonical);
     }
   }, [title, description, canonical, noindex, ogTitle, ogDescription, ogImage]);

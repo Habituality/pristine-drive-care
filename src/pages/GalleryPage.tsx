@@ -1,5 +1,5 @@
 // src/pages/GalleryPage.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Car, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -45,6 +45,41 @@ const GalleryPage = () => {
     ogTitle: "Innan & Efter – Bildetailing Stockholm | Glanzio",
     ogDescription: "Se vad professionell bilvård och detailing gör för din bil. Riktiga resultat från kunder i Stockholm.",
   });
+
+  // ImageGallery schema — helps Google understand before/after intent and surface image rich results
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = "gallery-schema";
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Innan & efter – Bildetailing Stockholm",
+      "description": "Riktiga resultat från professionell bilvård och detailing i Stockholm. Innan- och efterbilder från Glanzio Stockholms kunder.",
+      "url": "https://glanziostockholm.se/galleri",
+      "provider": {
+        "@type": "LocalBusiness",
+        "@id": "https://glanziostockholm.se",
+        "name": "Glanzio Stockholm",
+      },
+      "image": galleryItems.map((item) => ({
+        "@type": "ImageObject",
+        "contentUrl": `https://glanziostockholm.se/galleri`,
+        "name": item.alt,
+        "description": item.label
+          ? `${item.label === "Före" ? "Innan" : "Efter"} professionell bilvård och detailing i Stockholm`
+          : "Professionell bildetailing och bilvård i Stockholm",
+        "creator": {
+          "@type": "LocalBusiness",
+          "name": "Glanzio Stockholm",
+        },
+      })),
+    });
+    document.head.appendChild(script);
+    return () => {
+      document.getElementById("gallery-schema")?.remove();
+    };
+  }, []);
 
   const [activeFilter, setActiveFilter] = useState<Category>("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);

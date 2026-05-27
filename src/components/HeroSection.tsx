@@ -6,7 +6,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <img
         src={heroImage}
-        alt="Professionell biltvätt och detaljering"
+        alt="Professionell biltvätt och detailing"
         className="absolute inset-0 w-full h-full object-cover"
         width={1920}
         height={1080}
@@ -16,14 +16,14 @@ const HeroSection = () => {
 
       <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
         <p className="font-body text-sm tracking-[0.3em] uppercase text-primary mb-6 animate-fade-in-up">
-          Mobil rengöring & detaljering
+          Mobil bilvård & detailing
         </p>
         <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
           Vi kommer till dig –{" "}
-          <span className="text-gold-gradient">exklusiv</span> bil- & hemvård
+          <span className="text-gold-gradient">exklusiv</span> bilvård & detailing
         </h1>
         <p className="font-body text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-          Professionell biltvätt och detaljering – direkt på plats hos dig.
+          Professionell biltvätt och detailing – direkt på plats hos dig.
         </p>
         <div className="animate-fade-in-up" style={{ animationDelay: "0.45s" }}>
           <a
